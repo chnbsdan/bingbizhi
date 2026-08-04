@@ -54,6 +54,7 @@ function prependToFile(filePath, newLine) {
 
 // ============ 日期工具 ============
 
+// ★★★ 修复：offset 为负数时往前推 ★★★
 function getTargetDate(offset) {
     const now = new Date();
     now.setDate(now.getDate() + offset);
@@ -93,6 +94,7 @@ function formatToUHD(url) {
 // ============ API 请求 ============
 
 async function fetchBingWallpaper(offset) {
+    // offset: 0 → idx=0 (今天), offset: -1 → idx=1 (昨天)
     const idx = -offset;
     const url = `https://cn.bing.com/HPImageArchive.aspx?format=js&n=1&idx=${idx}&mkt=zh-CN`;
     const expectedDate = getTargetDate(offset);
@@ -264,19 +266,23 @@ function generatePagination(data) {
     console.log(`📄 生成 ${totalPages} 个分页文件 (每页 ${PAGE_SIZE} 条)`);
 }
 
-// ============ 主流程 ============
+// ============ ★★★ 主流程（修复：抓取今天和昨天）★★★ ============
 
 async function main() {
     console.log('🚀 开始处理壁纸...');
     console.log(`📅 今天是: ${getTargetDate(0)}`);
     console.log('');
 
-    const offsets = [0, 1];
+    // ★★★ 修复：0 今天，-1 昨天 ★★★
+    const offsets = [0, -1];
     const newResults = [];
 
     for (const offset of offsets) {
         const { valid, data, date } = await fetchBingWallpaper(offset);
-        if (!valid || !data) continue;
+        if (!valid || !data) {
+            console.log(`⚠️ offset ${offset}: 跳过`);
+            continue;
+        }
 
         const downloaded = await downloadWallpaper(data, date);
         if (downloaded) {
