@@ -219,7 +219,7 @@ html, body {
 }
 
 .card:hover .info { opacity: 1; }
-.card .info .date { font-size: 15px; color: rgba(255,255,255,0.6); font-weight: 600; }
+.card .info .date { font-size: 15px; color: rgba(255,255,255,0.8); font-weight: 600; }
 .card .info .title { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card .info .copyright { font-size: 11px; color: rgba(255,255,255,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
