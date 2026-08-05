@@ -586,24 +586,42 @@
                 // ============================================================
         // 7.1 下载下拉菜单（支持 mobile 和 mobile_s 动态裁剪）
         // ============================================================
-        downloadBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            downloadMenu.classList.toggle('show');
-        });
+        // 鼠标悬停显示/隐藏下拉菜单
+var downloadDropdown = document.querySelector('.dropdown');
 
-        downloadMenu.querySelectorAll('a').forEach(function(item) {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var res = this.getAttribute('data-res');
-                downloadImage(currentPreviewIndex, res);
-                downloadMenu.classList.remove('show');
-            });
-        });
+downloadDropdown.addEventListener('mouseenter', function(e) {
+    downloadMenu.classList.add('show');
+});
 
-        document.addEventListener('click', function() {
+downloadDropdown.addEventListener('mouseleave', function(e) {
+    // 延迟一点点隐藏，防止鼠标移动到菜单上时闪烁
+    setTimeout(function() {
+        if (!downloadMenu.matches(':hover')) {
             downloadMenu.classList.remove('show');
-        });
+        }
+    }, 100);
+});
+
+// 菜单本身也监听 mouseleave，确保鼠标离开菜单时隐藏
+downloadMenu.addEventListener('mouseleave', function() {
+    downloadMenu.classList.remove('show');
+});
+
+// 点击下载选项时执行下载
+downloadMenu.querySelectorAll('a').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var res = this.getAttribute('data-res');
+        downloadImage(currentPreviewIndex, res);
+        downloadMenu.classList.remove('show');
+    });
+});
+
+// 移除原来的 document.click 监听（或者保留也可以，但可能会干扰）
+// 如果你不想保留，可以注释掉下面这行：
+// document.addEventListener('click', function() {
+//     downloadMenu.classList.remove('show');
+// });
 
         // 核心下载函数
         function downloadImage(index, resolution) {
