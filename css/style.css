@@ -450,6 +450,7 @@ html, body {
 .dropdown { position: relative; display: inline-block; }
 .dropdown .btn { padding-right: 8px; }
 .dropdown .btn i.fa-chevron-down { font-size: 9px; margin-left: 2px; opacity: 0.5; }
+/* 下载下拉菜单 - 默认隐藏 */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -463,8 +464,22 @@ html, body {
     min-width: 130px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
-.dropdown-menu.show { display: block; }
+
+/* 鼠标悬停时显示 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 去掉原来的 .dropdown-menu.show（如果存在的话可以删除或注释掉） */
+/*.dropdown-menu.show { display: block; }*/
 .dropdown-menu a { display: block; padding: 6px 16px; color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 12px; transition: 0.15s; white-space: nowrap; }
 .dropdown-menu a:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
 .dropdown-menu .divider { height: 1px; background: rgba(255, 255, 255, 0.06); margin: 4px 12px; }
