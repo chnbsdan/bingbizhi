@@ -447,42 +447,65 @@ html, body {
 .donate-qr-wrapper .qr-tooltip .qr-footer { text-align: center; color: rgba(255, 255, 255, 0.35); font-size: 10px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
 .donate-qr-wrapper:hover .qr-tooltip { display: block; }
 
-.dropdown { position: relative; display: inline-block; }
-.dropdown .btn { padding-right: 8px; }
-.dropdown .btn i.fa-chevron-down { font-size: 9px; margin-left: 2px; opacity: 0.5; }
-/* 下载下拉菜单 - 默认隐藏 */
+/* ===== 下载下拉菜单 - 悬停触发 ===== */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown .btn {
+    padding-right: 8px;
+}
+.dropdown .btn i.fa-chevron-down {
+    font-size: 9px;
+    margin-left: 2px;
+    opacity: 0.5;
+}
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% - 2px);
     right: 0;
     background: rgba(20, 20, 35, 0.96);
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 4px 0;
-    min-width: 130px;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 6px 0;
+    min-width: 140px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     z-index: 20;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
 }
-
-/* 鼠标悬停时显示 */
 .dropdown:hover .dropdown-menu {
     display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
-
-/* 去掉原来的 .dropdown-menu.show（如果存在的话可以删除或注释掉） */
-/*.dropdown-menu.show { display: block; }*/
-.dropdown-menu a { display: block; padding: 6px 16px; color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 12px; transition: 0.15s; white-space: nowrap; }
-.dropdown-menu a:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
-.dropdown-menu .divider { height: 1px; background: rgba(255, 255, 255, 0.06); margin: 4px 12px; }
+.dropdown-menu a {
+    display: block;
+    padding: 7px 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 12px;
+    transition: 0.15s;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+.dropdown-menu .divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 4px 12px;
+}
 
 .donate-modal { display: none !important; }
 
